@@ -8,14 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0e1a;
-            --bg2: #111827;
-            --accent: #00f5c4;
-            --accent2: #7c3aed;
-            --text: #e2e8f0;
+            --bg: #060816;
+            --bg2: #0f172a;
+            --accent: #5eead4;
+            --accent2: #818cf8;
+            --accent3: #f59e0b;
+            --text: #f8fafc;
             --text-muted: #94a3b8;
-            --card: #1a2236;
-            --border: #1e293b;
+            --card: rgba(15, 23, 42, 0.86);
+            --border: rgba(148, 163, 184, 0.16);
+            --shadow: 0 18px 50px rgba(2, 6, 23, 0.35);
             --font-display: 'Syne', sans-serif;
             --font-mono: 'Space Mono', monospace;
         }
@@ -25,10 +27,76 @@
         html { scroll-behavior: smooth; }
 
         body {
-            background: var(--bg);
+            background:
+                radial-gradient(circle at top left, rgba(94, 234, 212, 0.16), transparent 25%),
+                linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
             color: var(--text);
             font-family: var(--font-display);
             overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        body::before {
+            background: var(--accent);
+            top: -80px;
+            left: -70px;
+        }
+
+        body::after {
+            background: var(--accent2);
+            right: -90px;
+            bottom: -100px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 90px;
+            height: 2px;
+            margin-top: 0.65rem;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 999px;
+        }
+
+        .hero-card,
+        .project-card,
+        .skill-category,
+        .cert-card,
+        .contact-card,
+        .contact-form,
+        .stat-card {
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
         }
 
         /* ===================== NAV ===================== */
@@ -105,11 +173,21 @@
         #accueil::before {
             content: '';
             position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0,245,196,0.08) 0%, transparent 70%);
+            width: 650px; height: 650px;
+            background: radial-gradient(circle, rgba(94,234,212,0.11) 0%, transparent 70%);
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+        }
+
+        .hero-card {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 2.2rem 2.4rem;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(15,23,42,0.7));
         }
 
         .grid-bg {
@@ -128,9 +206,29 @@
             color: var(--accent);
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             opacity: 0;
             animation: fadeUp 0.6s ease forwards 0.2s;
+        }
+
+        .hero-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-top: 1.3rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards 0.8s;
+        }
+
+        .hero-pill {
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            background: rgba(94, 234, 212, 0.08);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
         }
 
         .photo-profil {
@@ -253,6 +351,22 @@
             font-size: 0.95rem;
         }
 
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin: 1.4rem 0 1.5rem;
+        }
+
+        .highlight-card {
+            padding: 0.9rem 1rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(94, 234, 212, 0.1), rgba(129, 140, 248, 0.06));
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
         .about-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -260,12 +374,17 @@
         }
 
         .stat-card {
-            background: var(--card);
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1.5rem;
             text-align: center;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(94, 234, 212, 0.3);
         }
 
         .stat-card:hover { border-color: var(--accent); }
@@ -291,9 +410,9 @@
         }
 
         .project-card {
-            background: var(--card);
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 1.75rem;
             transition: all 0.3s;
             position: relative;
@@ -390,14 +509,18 @@
         }
 
         .skill-category {
-            background: var(--card);
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.78));
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 1.75rem;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-        .skill-category:hover { border-color: rgba(0,245,196,0.3); }
+        .skill-category:hover {
+            transform: translateY(-3px);
+        }
+
+        .skill-category:hover { border-color: rgba(94, 234, 212, 0.3); }
 
         .skill-category h3 {
             font-size: 0.8rem;
@@ -437,10 +560,16 @@
             gap: 1rem;
         }
 
+        .certs-grid a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
         .cert-card {
-            background: var(--card);
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1.25rem 1.5rem;
             display: flex;
             align-items: center;
@@ -493,26 +622,40 @@
             font-size: 0.95rem;
         }
 
+        .contact-panel {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 1.3rem;
+            align-items: start;
+        }
+
+        .contact-card,
+        .contact-form {
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.75));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.4rem;
+        }
+
         .contact-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
+            gap: 0.8rem;
+            margin-top: 1rem;
         }
 
         .contact-link {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 12px 24px;
-            border-radius: 10px;
-            background: var(--card);
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
             border: 1px solid var(--border);
             color: var(--text);
             text-decoration: none;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: all 0.2s;
         }
 
@@ -520,6 +663,58 @@
             border-color: var(--accent);
             color: var(--accent);
             transform: translateY(-2px);
+        }
+
+        .contact-form label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            margin-bottom: 0.95rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(2,6,23,0.7);
+            color: var(--text);
+            padding: 0.9rem 1rem;
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.14);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-note {
+            margin-top: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .form-status {
+            min-height: 1.2rem;
+            margin-top: 0.8rem;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
         }
 
         /* ===================== FOOTER ===================== */
@@ -544,8 +739,12 @@
         /* ===================== RESPONSIVE ===================== */
         @media (max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; }
+            .about-highlights { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .hero-btns { flex-direction: column; align-items: center; }
+            .hero-card { padding: 1.5rem; }
+            .contact-panel { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
 
         /* ===================== SCROLL REVEAL ===================== */
@@ -580,27 +779,34 @@
 <!-- ===== HERO ===== -->
 <section id="accueil">
     <div class="grid-bg"></div>
-    <p class="hero-tag">📍 Abomey-Calavi, Bénin — IFRI</p>
-    <img src="Photoprof.png" alt="God Win FADONOUGBO" class="photo-profil">
-    <h1 class="hero-name">
-        God Win<br><span>FADONOUGBO</span>
-    </h1>
-    <p class="hero-sub"
-       data-fr="Étudiant en IA & Cybersécurité · Machine Learning Engineer"
-       data-en="AI & Cybersecurity Student · Machine Learning Engineer">
-        Étudiant en IA & Cybersécurité · Machine Learning Engineer
-    </p>
-    <div class="hero-btns">
-        <a href="#projets" class="btn btn-primary"
-           data-fr="Voir mes projets"
-           data-en="View my projects">
-            Voir mes projets
-        </a>
-        <a href="#contact" class="btn btn-outline"
-           data-fr="Me contacter"
-           data-en="Contact me">
-            Me contacter
-        </a>
+    <div class="hero-card">
+        <p class="hero-tag">📍 Abomey-Calavi, Bénin — IFRI</p>
+        <img src="Photoprof.png" alt="God Win FADONOUGBO" class="photo-profil">
+        <h1 class="hero-name">
+            God Win<br><span>FADONOUGBO</span>
+        </h1>
+        <p class="hero-sub"
+           data-fr="Étudiant en IA & Cybersécurité · Machine Learning Engineer"
+           data-en="AI & Cybersecurity Student · Machine Learning Engineer">
+            Étudiant en IA & Cybersécurité · Machine Learning Engineer
+        </p>
+        <div class="hero-btns">
+            <a href="#projets" class="btn btn-primary"
+               data-fr="Voir mes projets"
+               data-en="View my projects">
+                Voir mes projets
+            </a>
+            <a href="#contact" class="btn btn-outline"
+               data-fr="Me contacter"
+               data-en="Contact me">
+                Me contacter
+            </a>
+        </div>
+        <div class="hero-highlights">
+            <span class="hero-pill">Python • PyTorch</span>
+            <span class="hero-pill">NLP • Cybersecurity</span>
+            <span class="hero-pill">Data Science • ML</span>
+        </div>
     </div>
 </section>
 
@@ -631,6 +837,12 @@
                    data-en="Currently selected in the iSHEERO program (AI training in Benin) and active on LinkedIn with over 1,400 impressions on my technical posts.">
                     Actuellement sélectionné dans le programme iSHEERO (formation IA au Bénin) et actif sur LinkedIn avec plus de 1 400 impressions sur mes publications techniques.
                 </p>
+                <div class="about-highlights">
+                    <div class="highlight-card">⚡ Projets IA concrets et documentés</div>
+                    <div class="highlight-card">🔐 Intérêt fort pour la cybersécurité</div>
+                    <div class="highlight-card">📚 Apprentissage continu et pratique</div>
+                    <div class="highlight-card">🤝 Ouvert aux collaborations</div>
+                </div>
             </div>
             <div class="about-stats">
                 <div class="stat-card">
@@ -638,7 +850,7 @@
                     <div class="stat-label" data-fr="Projets ML publiés" data-en="ML projects published">Projets ML publiés</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-num">10+</div>
+                    <div class="stat-num">12+</div>
                     <div class="stat-label" data-fr="Certifications" data-en="Certifications">Certifications</div>
                 </div>
                 <div class="stat-card">
@@ -872,86 +1084,126 @@
         </h2>
         <div class="certs-grid">
 
-            <div class="cert-card">
-                <div class="cert-icon">🐍</div>
-                <div class="cert-info">
-                    <h4 data-fr="Introduction to Python" data-en="Introduction to Python">Introduction to Python</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/1825ccc386bc34aaa2aabb16efe90a7a7d7a3b9a?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Introduction to Python" data-en="Introduction to Python">Introduction to Python</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🐍</div>
-                <div class="cert-info">
-                    <h4 data-fr="Intermediate Python" data-en="Intermediate Python">Intermediate Python</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/c33cbf93a16be718d8ed80e20b266c8a8bd395d9?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Intermediate Python" data-en="Intermediate Python">Intermediate Python</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🗄️</div>
-                <div class="cert-info">
-                    <h4 data-fr="Introduction to SQL" data-en="Introduction to SQL">Introduction to SQL</h4>
-                    <p>Sololearn · Mai 2026</p>
+            <a href="https://www.sololearn.com/certificates/CC-NHXLGQG2" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🗄️</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Introduction to SQL" data-en="Introduction to SQL">Introduction to SQL</h4>
+                        <p>Sololearn · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🗄️</div>
-                <div class="cert-info">
-                    <h4 data-fr="Introduction to SQL" data-en="Introduction to SQL">Introduction to SQL</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/aa8d9204e3c90db86479cd7308457f60d8908992?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🗄️</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Introduction to SQL" data-en="Introduction to SQL">Introduction to SQL</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🤖</div>
-                <div class="cert-info">
-                    <h4 data-fr="Introduction to AI for Work" data-en="Introduction to AI for Work">Introduction to AI for Work</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/a015ded19064327bfe65a1d5bce38982b8b3e025?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🤖</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Introduction to AI for Work" data-en="Introduction to AI for Work">Introduction to AI for Work</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🔌</div>
-                <div class="cert-info">
-                    <h4 data-fr="Introduction to APIs in Python" data-en="Introduction to APIs in Python">Introduction to APIs in Python</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/af9a2cf0897688f300fd090a9b06edc25ef855c4?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🔌</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Introduction to APIs in Python" data-en="Introduction to APIs in Python">Introduction to APIs in Python</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">💻</div>
-                <div class="cert-info">
-                    <h4 data-fr="Python for Developers (Intro)" data-en="Python for Developers (Intro)">Python for Developers (Intro)</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/c68b392ba5d1e5e649ccc785258b9dbdb5838fc3?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">💻</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Python for Developers (Intro)" data-en="Python for Developers (Intro)">Python for Developers (Intro)</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">💻</div>
-                <div class="cert-info">
-                    <h4 data-fr="Python for Developers (Inter)" data-en="Python for Developers (Inter)">Python for Developers (Inter)</h4>
-                    <p>DataCamp · Mai 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/9ccba55d0712804fb4ed10c35a08d62a883d0bde?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">💻</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Python for Developers (Inter)" data-en="Python for Developers (Inter)">Python for Developers (Inter)</h4>
+                        <p>DataCamp · Mai 2026</p>
+                    </div>
                 </div>
-            </div>
-             
-            <div class="cert-card">
-                <div class="cert-icon">🐍</div>
-                <div class="cert-info">
-                    <h4 data-fr="Data Structure and Algorithms in Python" data-en="Data Structure and Algorithms in Python">Data Structure and Algorithms in Python</h4>
-                    <p>DataCamp · Juillet 2026</p>
-                </div>
-            </div>
+            </a>
 
-            <div class="cert-card">
-                <div class="cert-icon">🐍</div>
-                <div class="cert-info">
-                    <h4 data-fr="Python Toolbox" data-en="Python Toolbox">Python Toolbox</h4>
-                    <p>DataCamp · Juillet 2026</p>
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/f0cb18569741c4dc75959f08039ca735ecf26758?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Data Structure and Algorithms in Python" data-en="Data Structure and Algorithms in Python">Data Structure and Algorithms in Python</h4>
+                        <p>DataCamp · Juillet 2026</p>
+                    </div>
                 </div>
-            </div>
-        
+            </a>
+
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/c2a69c05507a5594304ad320f8c7d49c58dc0230?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Python Toolbox" data-en="Python Toolbox">Python Toolbox</h4>
+                        <p>DataCamp · Juillet 2026</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/course/0d3c5630c200b1ec11d15e3ac61fd71117ca04be?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Data Types in Python" data-en="Data Types in Python">Data Types in Python</h4>
+                        <p>DataCamp · Juillet 2026</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.datacamp.com/completed/statement-of-accomplishment/track/55f5f898b50c56a57654800552da37c0d512007f?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa" target="_blank">
+                <div class="cert-card">
+                    <div class="cert-icon">🐍</div>
+                    <div class="cert-info">
+                        <h4 data-fr="Python Programming Fundamentals" data-en="Python Programming Fundamentals">Python Programming Fundamentals</h4>
+                        <p>DataCamp · Juillet 2026</p>
+                    </div>
+                </div>
+            </a>
+
         </div>
     </div>
 </section>
@@ -970,19 +1222,40 @@
            data-en="Open to collaborations, internship opportunities and discussions about AI and Cybersecurity. Feel free to reach out!">
             Ouvert aux collaborations, opportunités de stage et échanges autour de l'IA et la Cybersécurité. N'hésitez pas à me contacter !
         </p>
-        <div class="contact-links">
-            <a href="mailto:fadonougbogodwin@gmail.com" class="contact-link">
-                ✉️ fadonougbogodwin@gmail.com
-            </a>
-            <a href="https://www.linkedin.com/in/god-win-fadonougbo-750624379/" target="_blank" class="contact-link">
-                💼 LinkedIn
-            </a>
-            <a href="https://github.com/Real-Win" target="_blank" class="contact-link">
-                🐙 GitHub
-            </a>
-            <a href="https://wa.me/2290192614941" target="_blank" class="contact-link">
-                📱 WhatsApp
-            </a>
+        <div class="contact-panel">
+            <div class="contact-card">
+                <h3 style="margin-bottom:0.8rem; font-size:1.05rem;">Coordonnées</h3>
+                <p style="color:var(--text-muted); margin-bottom:1rem;">Vous pouvez aussi me joindre directement via ces réseaux.</p>
+                <div class="contact-links">
+                    <a href="mailto:fadonougbogodwin@gmail.com" class="contact-link">✉️ Email</a>
+                    <a href="https://www.linkedin.com/in/god-win-fadonougbo-750624379/" target="_blank" class="contact-link">💼 LinkedIn</a>
+                    <a href="https://github.com/Real-Win" target="_blank" class="contact-link">🐙 GitHub</a>
+                    <a href="https://wa.me/2290192614941" target="_blank" class="contact-link">📱 WhatsApp</a>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); handleFormSubmit();">
+                <div class="form-row">
+                    <label>
+                        Nom
+                        <input type="text" id="name" placeholder="Votre nom" required>
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" id="email" placeholder="Votre email" required>
+                    </label>
+                </div>
+                <label>
+                    Sujet
+                    <input type="text" id="subject" placeholder="Sujet" required>
+                </label>
+                <label>
+                    Message
+                    <textarea id="message" rows="5" placeholder="Écrivez votre message ici..." required></textarea>
+                </label>
+                <button type="submit" class="btn btn-primary" style="margin-top:0.4rem;">Envoyer</button>
+                <div class="form-status" id="form-status"></div>
+                <p class="form-note">Ce formulaire est prêt à être connecté à un service comme Formspree, EmailJS ou Netlify Forms.</p>
+            </form>
         </div>
     </div>
 </section>
@@ -1022,6 +1295,22 @@
             const text = el.getAttribute('data-' + currentLang);
             if (text) el.innerHTML = text;
         });
+    }
+
+    function handleFormSubmit() {
+        const status = document.getElementById('form-status');
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+            status.textContent = 'Veuillez remplir tous les champs.';
+            return;
+        }
+
+        status.textContent = 'Merci ! Votre message est prêt à être envoyé.';
+        document.querySelector('.contact-form').reset();
     }
 </script>
 
