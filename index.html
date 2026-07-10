@@ -839,6 +839,45 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ===================== MENTOR LINK VISUAL ===================== */
+        .mentor-link-section {
+            display: none;
+        }
+
+        .mentor-link-section h3, 
+        .mentor-link-section h4 {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .mentor-link-section [style*="display: flex"] > div {
+            transition: all 0.3s ease;
+        }
+
+        .mentor-link-section [style*="background: rgba"] {
+            transition: all 0.25s ease;
+        }
+
+        .mentor-link-section [style*="background: rgba"]:hover {
+            border-color: var(--accent) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,245,196,0.12);
+        }
+
+        .matching-score-bar {
+            height: 8px;
+            background: rgba(94,234,212,0.1);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .matching-score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
     </style>
 </head>
 <body>
@@ -937,16 +976,16 @@
                     <div class="stat-label" data-fr="Projets ML publiés" data-en="ML projects published">Projets ML publiés</div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-num">2+</div>
+                    <div class="stat-label" data-fr="Web Apps Déployées" data-en="Deployed Web Apps">Web Apps Déployées</div>
+                </div>
+                <div class="stat-card">
                     <div class="stat-num">13+</div>
                     <div class="stat-label" data-fr="Certifications" data-en="Certifications">Certifications</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-num">99%</div>
                     <div class="stat-label" data-fr="Accuracy CNN MNIST" data-en="CNN MNIST Accuracy">Accuracy CNN MNIST</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">1400+</div>
-                    <div class="stat-label" data-fr="Impressions LinkedIn" data-en="LinkedIn impressions">Impressions LinkedIn</div>
                 </div>
             </div>
         </div>
@@ -962,6 +1001,9 @@
         <h2 class="section-title" data-fr="Mes <span>Projets</span>" data-en="My <span>Projects</span>">
             Mes <span>Projets</span>
         </h2>
+
+        <!-- ===== MACHINE LEARNING PROJECTS ===== -->
+        <p class="section-label" style="margin-top: 2rem; margin-bottom: 1.5rem;" data-fr="🧠 Machine Learning" data-en="🧠 Machine Learning">🧠 Machine Learning</p>
         <div class="projects-grid">
 
             <div class="project-card">
@@ -1073,6 +1115,304 @@
             </div>
 
         </div>
+
+        <!-- ===== WEB & APPLICATIONS PROJECTS ===== -->
+        <p class="section-label" style="margin-top: 3.5rem; margin-bottom: 1.5rem;" data-fr="🌐 Web & Applications" data-en="🌐 Web & Applications">🌐 Web & Applications</p>
+        <div class="projects-grid">
+
+            <div class="project-card" style="grid-column: span 2; display: flex; flex-direction: column;">
+                <div class="project-tags">
+                    <span class="tag">Flask</span>
+                    <span class="tag">Socket.io</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Matching Algo</span>
+                </div>
+                <h3 data-fr="Mentor Link — Plateforme de Mentorat" data-en="Mentor Link — Mentoring Platform">Mentor Link — Plateforme de Mentorat</h3>
+                <p data-fr="Application web de mentorat en ligne entre étudiants de l'IFRI, développée avec mon équipe Rising Minds. Offrez ou demandez un mentorat avec un système de matching intelligent, messagerie instantanée et fil d'actualité communautaire."
+                   data-en="Online mentoring web app for IFRI students, developed with Rising Minds team. Offer or request mentoring with intelligent matching, instant messaging, and a community feed.">
+                    Application web de mentorat en ligne entre étudiants de l'IFRI, développée avec mon équipe Rising Minds. Offrez ou demandez un mentorat avec un système de matching intelligent, messagerie instantanée et fil d'actualité communautaire.
+                </p>
+                <div class="project-metrics">
+                    <div class="metric">12 <span>Utilisateurs actifs</span></div>
+                    <div class="metric">Messages <span>Instantanés</span></div>
+                    <div class="metric">Matching <span>Intelligent</span></div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <a href="https://github.com/Real-Win/Rising-Minds.git" target="_blank" class="project-link">
+                        GitHub →
+                    </a>
+                    <a href="https://rising-minds-mentorlink.onrender.com/" target="_blank" class="project-link">
+                        App en ligne →
+                    </a>
+                </div>
+
+                <!-- ===== MATCHING EXPLANATION INTEGRATED ===== -->
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(94,234,212,0.2);">
+                    <h4 style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--text);">
+                        <span style="color: var(--accent);">🤝</span> 
+                        <span data-fr="Comment fonctionne le matching ?" data-en="How does the matching work?">Comment fonctionne le matching ?</span>
+                    </h4>
+
+                    <!-- Architecture Grid -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <!-- Left: Architecture -->
+                        <div>
+                            <h5 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                                <span data-fr="Architecture de l'App" data-en="App Architecture">Architecture de l'App</span>
+                            </h5>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(0,245,196,0.1); border-left: 3px solid var(--accent); border-radius: 6px;">
+                                    <div style="font-weight: 600; font-size: 0.8rem; color: var(--text);">🎨 Frontend</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">Jinja Templates + HTML/CSS</div>
+                                </div>
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(129,140,248,0.1); border-left: 3px solid var(--accent2); border-radius: 6px;">
+                                    <div style="font-weight: 600; font-size: 0.8rem; color: var(--text);">⚙️ Backend</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">Flask + Socket.io (WebSockets)</div>
+                                </div>
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(245,158,11,0.1); border-left: 3px solid var(--accent3); border-radius: 6px;">
+                                    <div style="font-weight: 600; font-size: 0.8rem; color: var(--text);">🗄️ DB</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">SQLite (dev) + PostgreSQL (prod)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Matching Algorithm -->
+                        <div>
+                            <h5 style="color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                                <span data-fr="Algorithme de Matching" data-en="Matching Algorithm">Algorithme de Matching</span>
+                            </h5>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                                    <div style="display: flex; gap: 0.4rem;">
+                                        <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">①</span>
+                                        <div>
+                                            <div style="font-size: 0.8rem; color: var(--text);" data-fr="Filière" data-en="Major">Filière</div>
+                                            <div style="font-size: 0.65rem; color: var(--text-muted);">+20%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                                    <div style="display: flex; gap: 0.4rem;">
+                                        <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">②</span>
+                                        <div>
+                                            <div style="font-size: 0.8rem; color: var(--text);" data-fr="Matières" data-en="Subjects">Matières</div>
+                                            <div style="font-size: 0.65rem; color: var(--text-muted);">+50%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 0.7rem 0.8rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                                    <div style="display: flex; gap: 0.4rem;">
+                                        <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">③</span>
+                                        <div>
+                                            <div style="font-size: 0.8rem; color: var(--text);" data-fr="Disponibilités" data-en="Availability">Disponibilités</div>
+                                            <div style="font-size: 0.65rem; color: var(--text-muted);">+30%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem;">
+                        <div style="padding: 0.9rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(0,245,196,0.2); border-radius: 10px; text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">💬</div>
+                            <div style="font-weight: 600; font-size: 0.75rem; color: var(--text);" data-fr="Messagerie" data-en="Messaging">Messagerie</div>
+                        </div>
+                        <div style="padding: 0.9rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(129,140,248,0.2); border-radius: 10px; text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">📊</div>
+                            <div style="font-weight: 600; font-size: 0.75rem; color: var(--text);" data-fr="Actualité" data-en="Feed">Actualité</div>
+                        </div>
+                        <div style="padding: 0.9rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">🎯</div>
+                            <div style="font-weight: 600; font-size: 0.75rem; color: var(--text);" data-fr="Matching" data-en="Matching">Matching</div>
+                        </div>
+                        <div style="padding: 0.9rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(94,234,212,0.2); border-radius: 10px; text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">🤝</div>
+                            <div style="font-weight: 600; font-size: 0.75rem; color: var(--text);" data-fr="Flexible" data-en="Flexible">Flexible</div>
+                        </div>
+                    </div>
+
+                    <!-- Rising Minds Badge -->
+                    <div style="margin-top: 1.2rem; padding: 0.8rem; background: rgba(94,234,212,0.12); border-radius: 8px; text-align: center; border: 1px solid rgba(94,234,212,0.3);">
+                        <div style="font-size: 0.75rem; color: var(--text-muted);" data-fr="Équipe" data-en="Team">Équipe</div>
+                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--accent);">Rising Minds</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-tags">
+                    <span class="tag">Flask</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Security</span>
+                </div>
+                <h3 data-fr="Password Tool — Générateur & Analyseur" data-en="Password Tool — Generator & Analyzer">Password Tool — Générateur & Analyseur</h3>
+                <p data-fr="Application web de sécurité permettant de générer des mots de passe robustes et d'analyser la force de n'importe quel mot de passe avec recommandations en temps réel. Déployée en ligne avec Flask et Python."
+                   data-en="Security web app that generates strong passwords and analyzes password strength with real-time recommendations. Built with Flask and Python.">
+                    Application web de sécurité permettant de générer des mots de passe robustes et d'analyser la force de n'importe quel mot de passe avec recommandations en temps réel. Déployée en ligne avec Flask et Python.
+                </p>
+                <div class="project-metrics">
+                    <div class="metric">Générateur <span>Sécurisé</span></div>
+                    <div class="metric">Analyse <span>Instantanée</span></div>
+                    <div class="metric">Recommandations <span>Temps réel</span></div>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="https://github.com/Real-Win/PASSWORD_APP.git" target="_blank" class="project-link">
+                        GitHub →
+                    </a>
+                    <a href="https://password-tool-sgr7.onrender.com/" target="_blank" class="project-link">
+                        App en ligne →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== MENTOR LINK VISUAL SECTION ===== -->
+        <div class="mentor-link-section" style="margin-top: 3rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(94,234,212,0.08), rgba(129,140,248,0.08)); border: 1px solid rgba(94,234,212,0.2); border-radius: 20px; position: relative; overflow: hidden;">
+            <h3 style="font-size: 1.4rem; margin-bottom: 2rem; color: var(--text);">
+                <span style="color: var(--accent);">🤝</span> 
+                <span data-fr="Comment fonctionne le matching ?" data-en="How does the matching work?">Comment fonctionne le matching ?</span>
+            </h3>
+
+            <!-- Architecture Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem;">
+                <!-- Left: Architecture -->
+                <div>
+                    <h4 style="color: var(--accent); font-size: 0.9rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                        <span data-fr="Architecture de l'App" data-en="App Architecture">Architecture de l'App</span>
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        <div style="padding: 0.9rem 1rem; background: rgba(0,245,196,0.1); border-left: 3px solid var(--accent); border-radius: 6px;">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);">🎨 Frontend</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">Jinja Templates + HTML/CSS</div>
+                        </div>
+                        <div style="padding: 0.9rem 1rem; background: rgba(129,140,248,0.1); border-left: 3px solid var(--accent2); border-radius: 6px;">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);">⚙️ Backend</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">Flask + Socket.io (WebSockets)</div>
+                        </div>
+                        <div style="padding: 0.9rem 1rem; background: rgba(245,158,11,0.1); border-left: 3px solid var(--accent3); border-radius: 6px;">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);">🗄️ Base de données</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">SQLite (dev) + PostgreSQL (prod)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Matching Algorithm -->
+                <div>
+                    <h4 style="color: var(--accent); font-size: 0.9rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                        <span data-fr="Algorithme de Matching" data-en="Matching Algorithm">Algorithme de Matching</span>
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        <div style="padding: 0.9rem 1rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                            <div style="display: flex; gap: 0.6rem; margin-bottom: 0.6rem;">
+                                <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">①</span>
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--text);" data-fr="Filière" data-en="Major">Filière</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);" data-fr="Correspond-ils dans le même domaine ?" data-en="Same field?">Correspondent-ils dans le même domaine ?</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 0.9rem 1rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                            <div style="display: flex; gap: 0.6rem; margin-bottom: 0.6rem;">
+                                <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">②</span>
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--text);" data-fr="Matières communes" data-en="Common subjects">Matières communes</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);" data-fr="Nb. de matières partagées" data-en="Number of shared courses">Nombre de matières partagées</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 0.9rem 1rem; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 6px;">
+                            <div style="display: flex; gap: 0.6rem;">
+                                <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">③</span>
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--text);" data-fr="Disponibilités" data-en="Availability">Disponibilités</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);" data-fr="Créneau horaire en commun" data-en="Matching time slots">Créneau horaire en commun</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <h4 style="color: var(--accent); font-size: 0.9rem; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                <span data-fr="Fonctionnalités clés" data-en="Key Features">Fonctionnalités clés</span>
+            </h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div style="padding: 1.2rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(0,245,196,0.2); border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">💬</div>
+                    <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);" data-fr="Messagerie Instantanée" data-en="Instant Messaging">Messagerie Instantanée</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem;" data-fr="Communication en temps réel" data-en="Real-time chat">Communication en temps réel</div>
+                </div>
+                <div style="padding: 1.2rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(129,140,248,0.2); border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📊</div>
+                    <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);" data-fr="Fil d'Actualité" data-en="Activity Feed">Fil d'Actualité</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem;" data-fr="Partages et mises à jour" data-en="Updates & shares">Partages et mises à jour</div>
+                </div>
+                <div style="padding: 1.2rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🎯</div>
+                    <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);" data-fr="Matching Intelligent" data-en="Smart Matching">Matching Intelligent</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem;" data-fr="% de compatibilité" data-en="Compatibility score">% de compatibilité</div>
+                </div>
+                <div style="padding: 1.2rem; background: rgba(15,23,42,0.7); border: 1px solid rgba(94,234,212,0.2); border-radius: 10px; text-align: center;">
+                    <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🤝</div>
+                    <div style="font-weight: 600; font-size: 0.85rem; color: var(--text);" data-fr="Offrir / Demander" data-en="Offer / Request">Offrir / Demander</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem;" data-fr="Flexibilité totale" data-en="Full flexibility">Flexibilité totale</div>
+                </div>
+            </div>
+
+            <!-- Team Badge -->
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(94,234,212,0.12); border-radius: 10px; text-align: center; border: 1px solid rgba(94,234,212,0.3);">
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;" data-fr="Développé par l'équipe" data-en="Developed by the team">Développé par l'équipe</div>
+                <div style="font-weight: 700; font-size: 1.1rem; color: var(--accent);">Rising Minds</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;" data-fr="Une plateforme communautaire pour étudiants de l'IFRI" data-en="A community platform for IFRI students">Une plateforme communautaire pour étudiants de l'IFRI</div>
+            </div>
+
+            <!-- Example Matching Score -->
+            <div style="margin-top: 2.5rem; padding: 1.5rem; background: rgba(15,23,42,0.85); border: 1px solid rgba(94,234,212,0.15); border-radius: 14px;">
+                <h4 style="color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.2rem;">
+                    <span data-fr="📈 Exemple de Score de Matching" data-en="📈 Matching Score Example">📈 Exemple de Score de Matching</span>
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;" data-fr="Même filière ?" data-en="Same major?">Même filière ?</div>
+                        <div style="padding: 0.8rem; background: rgba(34,197,94,0.15); border-left: 3px solid #22c55e; border-radius: 6px; text-align: center;">
+                            <div style="font-size: 1.5rem;">✓</div>
+                            <div style="font-size: 0.8rem; color: var(--text); font-weight: 600; margin-top: 0.3rem;">+20%</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;" data-fr="Matières communes ?" data-en="Common subjects?">Matières communes ?</div>
+                        <div style="padding: 0.8rem; background: rgba(59,130,246,0.15); border-left: 3px solid #3b82f6; border-radius: 6px; text-align: center;">
+                            <div style="font-size: 1.5rem;">✓</div>
+                            <div style="font-size: 0.8rem; color: var(--text); font-weight: 600; margin-top: 0.3rem;">+50%</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;" data-fr="Dispo. compatibles ?" data-en="Compatible times?">Dispo. compatibles ?</div>
+                        <div style="padding: 0.8rem; background: rgba(168,85,247,0.15); border-left: 3px solid #a855f7; border-radius: 6px; text-align: center;">
+                            <div style="font-size: 1.5rem;">✓</div>
+                            <div style="font-size: 0.8rem; color: var(--text); font-weight: 600; margin-top: 0.3rem;">+30%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(94,234,212,0.08); border-radius: 10px; border: 1px solid rgba(94,234,212,0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                        <div style="font-weight: 600; color: var(--text);" data-fr="Score de compatibilité total" data-en="Total compatibility score">Score de compatibilité total</div>
+                        <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent);">100%</div>
+                    </div>
+                    <div class="matching-score-bar">
+                        <div class="matching-score-fill" style="width: 100%;"></div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;" data-fr="Candidat parfaitement compatible" data-en="Perfectly compatible candidate">✨ Candidat parfaitement compatible</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
