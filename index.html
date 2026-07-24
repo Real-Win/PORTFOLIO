@@ -1082,7 +1082,15 @@ h2.section-title::after {
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .form-note { margin-top: 0.8rem; color: var(--text-muted); font-size: 0.78rem; }
-.form-status { min-height: 1.2rem; margin-top: 0.7rem; color: var(--accent); font-size: 0.8rem; font-family: var(--font-mono); }
+.form-status { min-height: 1.2rem; margin-top: 0.7rem; color: var(--accent); font-size: 0.8rem; font-family: var(--font-mono); transition: color 0.3s; }
+.form-status.success { color: #00f5c4; text-shadow: 0 0 8px rgba(0,245,196,0.25); }
+.form-status.error { color: #f87171; text-shadow: 0 0 8px rgba(248,113,113,0.25); }
+.form-status.sending { color: #818cf8; }
+.contact-form button[type="submit"]:disabled {
+  opacity: 0.5;
+  transform: none !important;
+  box-shadow: none !important;
+}
 
 @media (max-width: 768px) {
   .contact-panel { grid-template-columns: 1fr; }
@@ -1451,16 +1459,16 @@ footer span { color: var(--accent); }
           <a href="https://wa.me/2290192614941" target="_blank" class="contact-link">📱 WhatsApp</a>
         </div>
       </div>
-      <form class="contact-form" id="contact-form">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xrenozpv" method="POST">
         <div class="form-row">
-          <label>Nom<input type="text" id="name" placeholder="Votre nom" required></label>
-          <label>Email<input type="email" id="email" placeholder="Votre email" required></label>
+          <label>Nom<input type="text" id="name" name="name" placeholder="Votre nom" required></label>
+          <label>Email<input type="email" id="email" name="email" placeholder="Votre email" required></label>
         </div>
-        <label>Sujet<input type="text" id="subject" placeholder="Sujet" required></label>
-        <label>Message<textarea id="message" rows="5" placeholder="Écrivez votre message ici..." required></textarea></label>
+        <label>Sujet<input type="text" id="subject" name="subject" placeholder="Sujet" required></label>
+        <label>Message<textarea id="message" name="message" rows="5" placeholder="Écrivez votre message ici..." required></textarea></label>
         <button type="submit" class="btn btn-primary" style="margin-top:0.4rem;">Envoyer</button>
         <div class="form-status" id="form-status"></div>
-        <p class="form-note">Ce formulaire est prêt à être connecté à un service comme Formspree, EmailJS ou Netlify Forms.</p>
+        <p class="form-note">💡 Remplace <code>TON_FORM_ID</code> dans <code>action="..."</code> par ton ID Formspree.</p>
       </form>
     </div>
   </div>
@@ -1758,19 +1766,78 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
    CONTACT FORM
 ═══════════════════════════════════════ */
 const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
+const formStatus = document.getElementById('form-status');
+const submitBtn = contactForm.querySelector('button[type="submit"]');
+const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Envoyer';
+
+function setFormStatus(msg, type) {
+  formStatus.textContent = msg;
+  formStatus.className = 'form-status' + (type ? ' ' + type : '');
+}
+
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const status = document.getElementById('form-status');
+
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const subject = document.getElementById('subject').value.trim();
   const message = document.getElementById('message').value.trim();
+
   if (!name || !email || !subject || !message) {
-    status.textContent = 'Veuillez remplir tous les champs.';
+    setFormStatus(currentLang === 'fr' ? 'Veuillez remplir tous les champs.' : 'Please fill in all fields.', 'error');
     return;
   }
-  status.textContent = 'Merci ! Votre message est prêt à être envoyé.';
-  contactForm.reset();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    setFormStatus(currentLang === 'fr' ? 'Veuillez entrer un email valide.' : 'Please enter a valid email.', 'error');
+    return;
+  }
+
+  const endpoint = contactForm.action;
+  if (!endpoint || endpoint.includes('TON_FORM_ID')) {
+    setFormStatus(currentLang === 'fr'
+      ? "⚠️ Config requise : remplace TON_FORM_ID dans action=\"...\" par ton ID Formspree."
+      : "⚠️ Setup required: replace TON_FORM_ID in action=\"...\" with your Formspree ID.", 'error');
+    return;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = currentLang === 'fr' ? 'Envoi en cours...' : 'Sending...';
+  }
+  setFormStatus(currentLang === 'fr' ? 'Envoi en cours...' : 'Sending...', 'sending');
+
+  try {
+    const formData = new FormData(contactForm);
+    formData.append('_subject', `[Portfolio] ${subject}`);
+    formData.append('_replyto', email);
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    });
+
+    if (response.ok) {
+      setFormStatus(currentLang === 'fr' ? '✅ Message envoyé avec succès ! Je te répondrai bientôt.' : '✅ Message sent successfully! I will reply soon.', 'success');
+      contactForm.reset();
+    } else {
+      const data = await response.json().catch(() => ({}));
+      if (data && data.errors && data.errors.length) {
+        setFormStatus(data.errors.map(err => err.message).join(', '), 'error');
+      } else {
+        setFormStatus(currentLang === 'fr' ? '❌ Une erreur est survenue. Réessaie plus tard.' : '❌ An error occurred. Please try again later.', 'error');
+      }
+    }
+  } catch (err) {
+    setFormStatus(currentLang === 'fr' ? '❌ Erreur réseau. Vérifie ta connexion.' : '❌ Network error. Please check your connection.', 'error');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+    }
+  }
 });
 </script>
 </body>
