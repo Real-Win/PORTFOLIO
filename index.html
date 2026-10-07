@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){try{var t=localStorage.getItem('gw-theme')||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
 <style>
 /* ═══════════════════════════════════════
    ROOT & RESET
@@ -1188,6 +1191,56 @@ footer span { color: var(--accent); }
 @media (max-width: 768px) {
   .mentor-architecture-grid { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════ THEME CLAIR / SOMBRE ═══════════════ */
+:root { --particle: 0, 245, 196; --nav-bg: rgba(4,5,10,0.8); --nav-bg-s: rgba(4,5,10,0.92);
+  --surface: linear-gradient(145deg, rgba(15,23,42,0.92), rgba(15,23,42,0.68)); --input-bg: rgba(2,6,23,0.65); --overlay-bg: rgba(4,5,10,0.95); --quote-bg: rgba(6,8,22,0.6); }
+html[data-theme="light"] {
+  --bg: #f4f7fb; --bg2: #e8eef7; --accent: #00a37f; --accent2: #5b5bd6; --accent3: #d97706;
+  --accent-glow: rgba(0,163,127,0.28); --text: #0f172a; --text-muted: #475569;
+  --card: rgba(255,255,255,0.8); --border: rgba(15,23,42,0.12); --shadow: 0 20px 50px rgba(15,23,42,0.12);
+  --particle: 0, 140, 110; --nav-bg: rgba(244,247,251,0.82); --nav-bg-s: rgba(244,247,251,0.95);
+  --surface: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(255,255,255,0.78)); --input-bg: rgba(255,255,255,0.9);
+  --overlay-bg: rgba(244,247,251,0.97); --quote-bg: rgba(255,255,255,0.7);
+}
+body, nav, .project-card, .stat-card, .skill-category, .cert-card, .contact-card, .contact-form { transition: background-color .4s ease, color .4s ease, border-color .4s ease; }
+nav { background: var(--nav-bg); } nav.scrolled { background: var(--nav-bg-s); }
+.hero-quote { background: var(--quote-bg); }
+.stat-card, .project-card, .skill-category, .cert-card, .contact-card, .contact-form { background: var(--surface); }
+.contact-form input, .contact-form textarea { background: var(--input-bg); color: var(--text); }
+.mobile-nav-overlay { background: var(--overlay-bg); }
+html[data-theme="light"] body::after { opacity: .15; }
+html[data-theme="light"] .btn-primary { color: #fff; }
+html[data-theme="light"] .cursor-ring { border-color: rgba(0,163,127,.5); }
+
+.theme-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--text);
+  font-size: 1.05rem; cursor: pointer; display: grid; place-items: center; transition: transform .4s ease, border-color .2s, box-shadow .2s; }
+.theme-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px var(--accent-glow); transform: rotate(25deg) scale(1.08); }
+
+.nav-links a.active { color: var(--accent); } .nav-links a.active::after { width: 100%; }
+
+.btn-cv { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.6rem; border-radius: 999px; font-weight: 700; font-size: .9rem;
+  border: 1.5px dashed var(--accent2); color: var(--accent2); transition: all .25s ease; }
+.btn-cv:hover { background: var(--accent2); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 28px rgba(129,140,248,.35); }
+
+.filter-bar { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.5rem 0 .5rem; }
+.filter-chip { font-family: var(--font-mono); font-size: .75rem; padding: .45rem 1rem; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--card); color: var(--text-muted); cursor: pointer; transition: all .2s ease; }
+.filter-chip:hover { border-color: var(--accent); color: var(--accent); }
+.filter-chip.active { background: var(--accent); border-color: var(--accent); color: #04050a; font-weight: 700; }
+.project-card.is-hidden { display: none; }
+.filter-empty { display: none; color: var(--text-muted); font-family: var(--font-mono); margin-top: 1rem; }
+
+.to-top { position: fixed; right: 1.4rem; bottom: 1.4rem; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--accent);
+  background: var(--card); color: var(--accent); font-size: 1.2rem; cursor: pointer; z-index: 150; opacity: 0; visibility: hidden;
+  transform: translateY(14px); transition: all .3s ease; backdrop-filter: blur(10px); }
+.to-top.show { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--accent); color: #04050a; box-shadow: 0 0 20px var(--accent-glow); }
+
+.toast { position: fixed; left: 50%; bottom: 2rem; transform: translate(-50%, 30px); background: var(--text); color: var(--bg); padding: .7rem 1.3rem;
+  border-radius: 999px; font-size: .85rem; font-weight: 600; opacity: 0; pointer-events: none; z-index: 10002; transition: all .35s ease; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+button.contact-link { font: inherit; cursor: pointer; background: none; color: inherit; }
 </style>
 </head>
 <body>
@@ -1230,6 +1283,7 @@ footer span { color: var(--accent); }
     <li><a href="#contact" data-fr="Contact" data-en="Contact">Contact</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="theme-btn" id="theme-btn" aria-label="Changer de thème" title="Thème clair / sombre">🌙</button>
     <button class="lang-btn" id="lang-btn">EN</button>
     <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1242,7 +1296,7 @@ footer span { color: var(--accent); }
   <div class="hero-container">
     <div class="hero-visual">
       <div class="hero-photo-wrapper">
-        <img src="Screenshot_20261002-215215-241.png" alt="God Win FADONOUGBO" class="photo-profil">
+        <img src="C:\Users\hp\portf\Screenshot_20261002-215215-241.png" alt="God Win FADONOUGBO" class="photo-profil">
         <div class="hero-orbit"><div class="hero-orbit-dot"></div></div>
       </div>
     </div>
@@ -1253,6 +1307,7 @@ footer span { color: var(--accent); }
       <div class="hero-btns">
         <a href="#projets" class="btn btn-primary" data-fr="Voir mes projets" data-en="View my projects">Voir mes projets</a>
         <a href="#contact" class="btn btn-outline" data-fr="Me contacter" data-en="Contact me">Me contacter</a>
+        <a href="CV_God_Win_FADONOUGBO.pdf" download class="btn-cv" data-fr="📄 Télécharger mon CV" data-en="📄 Download my CV">📄 Télécharger mon CV</a>
       </div>
       <div class="hero-highlights">
         <span class="hero-pill">Python • PyTorch</span>
@@ -1306,6 +1361,14 @@ footer span { color: var(--accent); }
     <p class="section-label">// 02</p>
     <h2 class="section-title" data-fr="Mes <span>Projets</span>" data-en="My <span>Projects</span>">Mes <span>Projets</span></h2>
 
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-chip active" data-filter="all" data-fr="Tous" data-en="All">Tous</button>
+      <button class="filter-chip" data-filter="PyTorch">PyTorch</button>
+      <button class="filter-chip" data-filter="NLP">NLP</button>
+      <button class="filter-chip" data-filter="Cybersécurité">Cybersécurité</button>
+      <button class="filter-chip" data-filter="Flask">Web / Flask</button>
+    </div>
+    <p class="filter-empty" id="filter-empty" data-fr="Aucun projet pour ce filtre." data-en="No project for this filter.">Aucun projet pour ce filtre.</p>
     <p class="section-label" style="margin-top: 2rem; margin-bottom: 1.5rem;">🧠 Machine Learning</p>
     <div class="projects-grid">
 
@@ -1455,12 +1518,13 @@ footer span { color: var(--accent); }
         <p style="color:var(--text-muted); margin-bottom:1.1rem;">Vous pouvez aussi me joindre directement via ces réseaux.</p>
         <div class="contact-links">
           <a href="mailto:fadonougbogodwin@gmail.com" class="contact-link">✉️ Email</a>
+          <button type="button" class="contact-link" id="copy-email" data-fr="📋 Copier l'email" data-en="📋 Copy email">📋 Copier l'email</button>
           <a href="https://www.linkedin.com/in/god-win-fadonougbo-750624379/" target="_blank" class="contact-link">💼 LinkedIn</a>
           <a href="https://github.com/Real-Win" target="_blank" class="contact-link">🐙 GitHub</a>
           <a href="https://wa.me/2290192614941" target="_blank" class="contact-link">📱 WhatsApp</a>
         </div>
       </div>
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/TON_FORM_ID" method="POST">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xrenozpv" method="POST">
         <div class="form-row">
           <label>Nom<input type="text" id="name" name="name" placeholder="Votre nom" required></label>
           <label>Email<input type="email" id="email" name="email" placeholder="Votre email" required></label>
@@ -1474,6 +1538,9 @@ footer span { color: var(--accent); }
   </div>
 </section>
 
+<button class="to-top" id="to-top" aria-label="Retour en haut">↑</button>
+<div class="toast" id="toast"></div>
+
 <footer>
   <p>Conçu & développé par <span>God Win FADONOUGBO</span> · 2026</p>
   <p style="margin-top:0.5rem; font-size:0.65rem;">Étudiant IFRI · Bénin 🇧🇯 · IA & Cybersécurité</p>
@@ -1483,6 +1550,7 @@ footer span { color: var(--accent); }
 /* ═══════════════════════════════════════
    NETWORK CANVAS BACKGROUND
 ═══════════════════════════════════════ */
+const PCOL = () => getComputedStyle(document.documentElement).getPropertyValue('--particle').trim() || '0, 245, 196';
 const canvas = document.getElementById('network-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -1523,7 +1591,7 @@ class Particle {
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(0, 245, 196, ${this.baseAlpha})`;
+    ctx.fillStyle = `rgba(${PCOL()}, ${this.baseAlpha})`;
     ctx.fill();
   }
 }
@@ -1548,7 +1616,7 @@ function animateCanvas() {
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0, 245, 196, ${0.08 * (1 - dist / 120)})`;
+        ctx.strokeStyle = `rgba(${PCOL()}, ${0.08 * (1 - dist / 120)})`;
         ctx.lineWidth = 0.6;
         ctx.stroke();
       }
@@ -1839,6 +1907,51 @@ contactForm.addEventListener('submit', async (e) => {
     }
   }
 });
+
+/* ═══════════════ NOUVELLES FONCTIONNALITÉS ═══════════════ */
+(function(){
+  const root = document.documentElement, themeBtn = document.getElementById('theme-btn');
+  const icon = () => themeBtn.textContent = root.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+  icon();
+  themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('gw-theme', next); } catch(e) {}
+    icon();
+  });
+
+  const toast = document.getElementById('toast');
+  const say = m => { toast.textContent = m; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); };
+  const fr = () => root.getAttribute('data-lang') !== 'en';
+
+  document.getElementById('copy-email').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText('fadonougbogodwin@gmail.com'); say(fr() ? 'Email copié ✓' : 'Email copied ✓'); }
+    catch(e) { say('fadonougbogodwin@gmail.com'); }
+  });
+
+  const chips = document.querySelectorAll('.filter-chip'), cards = document.querySelectorAll('.project-card');
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('active')); c.classList.add('active');
+    const f = c.dataset.filter; let n = 0;
+    cards.forEach(card => {
+      const ok = f === 'all' || [...card.querySelectorAll('.tag')].some(t => t.textContent.trim() === f);
+      card.classList.toggle('is-hidden', !ok); if (ok) n++;
+    });
+    document.getElementById('filter-empty').style.display = n ? 'none' : 'block';
+  }));
+
+  const top = document.getElementById('to-top');
+  top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  const onScroll = () => {
+    top.classList.toggle('show', window.scrollY > 600);
+    let cur = 0; secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * 0.4) cur = i; });
+    links.forEach((a, i) => a.classList.toggle('active', i === cur && window.scrollY > 100));
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
 </script>
 </body>
 </html>
